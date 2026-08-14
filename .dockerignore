@@ -1,0 +1,49 @@
+# ── Dependencies ──────────────────────────────
+node_modules/
+
+# ── Compiled output (rebuilt inside Docker) ───
+dist/
+
+# ── Environment / Secrets (NEVER bake in) ─────
+.env
+.env.*
+!.env.example
+
+# ── Git & IDE ─────────────────────────────────
+.git/
+.gitignore
+.gitattributes
+.vscode/
+.vs/
+.cursorignore
+.AIMetadata/
+
+# ── Logs & runtime data ───────────────────────
+logs/
+*.log
+pids/
+*.pid
+
+# ── Local session / metrics storage ──────────
+.phantom-sessions/
+.llm-metrics/
+chat-history/
+
+# ── Test / dev artifacts ──────────────────────
+coverage/
+*.lcov
+.nyc_output/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# ── Misc project files not needed in image ────
+*.md
+*.txt
+*.sh
+Screenshots/
+Documentation/
+Workspace/
+home/
+scripts/
+current_chunks.json

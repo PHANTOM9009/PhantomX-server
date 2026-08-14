@@ -1,0 +1,1198 @@
+[
+  {
+    name: "Execute_commmand",
+    description: "Execute a bash command  in the docker container environment. ",
+    input_schema: {
+      type: "object",
+      properties: {
+        command: {
+          type: "string",
+          description: "The linux command to execute on the system. Always make sure that the command always returns back, specially if you want to run curl based commands, make sure that they return from the terminal",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "command",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "StartBackgroundProcess",
+    description: "Start a command as a background process that continues running even after the SSH session ends. Useful for starting servers, long-running tasks, or any process that should not block the terminal.",
+    input_schema: {
+      type: "object",
+      properties: {
+        command: {
+          type: "string",
+          description: "The command to execute in the background (e.g., 'node server.js', 'npm start')",
+        },
+        processName: {
+          type: "string",
+          description: "Optional friendly name for the process to make it easier to identify (e.g., 'api-server', 'frontend')",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "command",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "ListBackgroundProcesses",
+    description: "List all background processes that have been started, including their status, PID, and other information.",
+    input_schema: {
+      type: "object",
+      properties: {
+      },
+    },
+  },
+  {
+    name: "GetBackgroundProcessLogs",
+    description: "Get the logs/output of a specific background process.",
+    input_schema: {
+      type: "object",
+      properties: {
+        processId: {
+          type: "integer",
+          description: "The ID of the background process (returned when starting the process)",
+        },
+        maxLines: {
+          type: "integer",
+          description: "Optional maximum number of lines to retrieve (0 for all lines)",
+        },
+        tailMode: {
+          type: "boolean",
+          description: "Optional flag to get the last maxLines (true) or first maxLines (false). Default is true.",
+        },
+      },
+      required: [
+        "processId",
+      ],
+    },
+  },
+  {
+    name: "TerminateBackgroundProcess",
+    description: "Terminate a background process by its ID.",
+    input_schema: {
+      type: "object",
+      properties: {
+        processId: {
+          type: "integer",
+          description: "The ID of the background process to terminate (returned when starting the process)",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "processId",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "command_verify_result",
+    description: "use this tool when you are asked to verify the command given to you. use this tool at last to output the result",
+    input_schema: {
+      type: "object",
+      properties: {
+        result: {
+          type: "boolean",
+          description: "",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+        error: {
+          type: "string",
+          description: "error description, why this error occured",
+        },
+      },
+      required: [
+        "result",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "UserDockerTerminalResult",
+    description: "Use this tool when you are prompted to set User Docker terminal using ttyd, and after you have successfully set it up, or there is an issue while setting it",
+    input_schema: {
+      type: "object",
+      properties: {
+        result: {
+          type: "boolean",
+          description: "If the setup was successfull or not",
+        },
+        ExactCommand: {
+          type: "string",
+          description: " This will be the exact runnable bash command which worked successfully for starting the docker container with user terminal for ttyd",
+        },
+        portRunning: {
+          type: "string",
+          description: "The Port on which you have started the ttyd docker temrinal",
+        },
+        runningContainerName: {
+          type: "string",
+          description: " The name of the container you started",
+        },
+        error: {
+          type: "string",
+          description: "error description, why this error occured",
+        },
+      },
+      required: [
+        "result",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "ReadFile",
+    description: "Reads a code file and returns lines from start_line to end_line (both inclusive), along with a summary of the lines outside this range. Use this to gather the complete context before making edits or decisions.",
+    input_schema: {
+      type: "object",
+      required: [
+        "targetFile",
+        "shouldReadEntireFile",
+        "startLineOneIndexed",
+        "endLineOneIndexedInclusive",
+        "explanation",
+      ],
+      properties: {
+        targetFile: {
+          type: "string",
+          description: "Absolute path to the file to read, in linux format.",
+        },
+        shouldReadEntireFile: {
+          type: "boolean",
+          description: "Set to true only if the entire file needs to be read. Should be avoided unless strictly necessary (e.g., for newly edited or attached files).",
+        },
+        startLineOneIndexed: {
+          type: "integer",
+          description: "The one-indexed line number to start reading from (inclusive).",
+        },
+        endLineOneIndexedInclusive: {
+          type: "integer",
+          description: "The one-indexed line number to end reading at (inclusive).",
+        },
+        explanation: {
+          type: "string",
+          description: "One sentence explanation describing why this tool call is being made and how it contributes to the goal.",
+        },
+      },
+    },
+  },
+  {
+    name: "EditCodeFile",
+    description: "Edits a code file by inserting, replacing, or deleting content at specific lines. Returns an array of edit patch objects.",
+    input_schema: {
+      type: "object",
+      properties: {
+        edits: {
+          type: "array",
+          description: "List of edit operations to apply.",
+          items: {
+            type: "object",
+            required: [
+              "id",
+              "filePath",
+              "operation",
+            ],
+            properties: {
+              id: {
+                type: "string",
+                description: "Unique identifier for this edit operation",
+              },
+              filePath: {
+                type: "string",
+                description: "Absolute Path to the file to edit, path has to be in linux file format.",
+              },
+              operation: {
+                type: "string",
+                enum: [
+                  "insert",
+                  "replace",
+                  "delete",
+                ],
+                description: "Type of edit operation to perform",
+              },
+              locationForInsertion: {
+                type: "object",
+                description: "Location where the insertion will occur.",
+                required: [
+                  "startLine",
+                ],
+                properties: {
+                  startLine: {
+                    type: "string",
+                    description: "Exact line after which insertion will happen.",
+                  },
+                },
+              },
+              patchToBeEdited: {
+                type: "string",
+                description: "Code patch to replace or delete. Required for replace/delete.",
+              },
+              content: {
+                type: "string",
+                description: "New content to insert or replace. Not needed for delete.",
+              },
+              reason: {
+                type: "string",
+                description: "Optional reason for the edit.",
+              },
+            },
+          },
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "edits",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Execute_commmand_host_machine",
+    description: "Execute a bash command  in the host machine environment. ",
+    input_schema: {
+      type: "object",
+      properties: {
+        command: {
+          type: "string",
+          description: "The linux command to execute on the system",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "command",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_GetRepositoryList",
+    description: "Get the list of repositories accessible by the GitHub App installation. This returns all repositories that the installation has access to.",
+    input_schema: {
+      type: "object",
+      properties: {
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_getRepositoryOriginBranch",
+    description: "Get the origin branch on which the PR has to be made for a specific repository",
+    input_schema: {
+      type: "object",
+      properties: {
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+        repoName: {
+          type: "string",
+          description: "The name of the repository to pull",
+        },
+      },
+      required: [
+        "repoName",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_PullRepository",
+    description: "Pull the latest changes from the remote repository to the local working directory. This performs a git fetch followed by git pull for the current branch. Returns merge conflict information if any conflicts are detected.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository to pull",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_PushRepository",
+    description: "Push local committed changes to the remote repository. This will push all commits from the current branch that are ahead of the remote. Requires that changes have been committed first using Github_CommitLocalChanges.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository to push",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_CheckRepositoryStatus",
+    description: "Check the current status of a repository including: current branch, commits ahead/behind remote, uncommitted changes, merge conflicts, and whether the repository needs a pull or push. This is useful before performing any git operations.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository to check",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_GetRepositoryHistory",
+    description: "Get the commit history of a repository. Returns detailed information about recent commits including author, date, message, and files changed. You can specify the number of commits to retrieve and optionally filter by a specific branch.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository",
+        },
+        branch: {
+          type: "string",
+          description: "Branch name to get history from (e.g., 'main', 'develop'). Defaults to 'main' if not specified.",
+        },
+        maxCommits: {
+          type: "integer",
+          description: "Maximum number of commits to retrieve (default: 10, max: 50)",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_CommitLocalChanges",
+    description: "Commit all local changes in the repository with a commit message. This will stage all modified files and create a new commit. The commit is local only until you push using Github_PushRepository.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository",
+        },
+        commitMessage: {
+          type: "string",
+          description: "The commit message describing the changes",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "commitMessage",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_CreatePullRequest",
+    description: "Create a pull request from the current branch to a target branch. This will push the current branch if it has unpushed commits and create a PR on GitHub. Returns the PR URL and number. If a PR already exists, returns the existing PR information.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository",
+        },
+        targetBranch: {
+          type: "string",
+          description: "The target branch to merge into (e.g., 'main', 'develop')",
+        },
+        title: {
+          type: "string",
+          description: "Optional title for the pull request. If not provided, a default title will be generated.",
+        },
+        body: {
+          type: "string",
+          description: "Optional description/body for the pull request",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "targetBranch",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_CheckPullRequestExists",
+    description: "Check if a pull request already exists from the current branch to the target branch. Returns PR information if it exists, including PR number, URL, and status.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository",
+        },
+        targetBranch: {
+          type: "string",
+          description: "The target branch to check for PR against (e.g., 'main', 'develop')",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "targetBranch",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_GetCommitDetails",
+    description: "Get detailed information about a specific commit including files changed, additions/deletions, author, date, and commit message. Useful for reviewing what changes were made in a particular commit.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository",
+        },
+        commitHash: {
+          type: "string",
+          description: "The commit hash (full or short SHA) to get details for",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "commitHash",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_GetCommitList",
+    description: "Get commit list for a repository branch. Returns commit IDs (short and full hash), author, date, and message so later you can fetch diffs for a specific commit.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository",
+        },
+        branch: {
+          type: "string",
+          description: "Branch name to list commits from (e.g., 'main', 'develop'). Defaults to current checked-out branch when omitted.",
+        },
+        maxCommits: {
+          type: "integer",
+          description: "Maximum number of commits to retrieve (default: 100, max: 500)",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_GetLatestCommitDiff",
+    description: "Get git diff of the latest commit on a given branch, including commit metadata and summary of changed files/additions/deletions.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository",
+        },
+        branch: {
+          type: "string",
+          description: "Branch name whose latest commit diff should be fetched. Defaults to current checked-out branch when omitted.",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_GetCommitDiffByHash",
+    description: "Get git diff for a specific commit hash. Use this when you already know the commit ID and want exact patch changes for that commit.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository",
+        },
+        commitHash: {
+          type: "string",
+          description: "The commit hash (full or short SHA) for which diff should be fetched",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "commitHash",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "Github_MergeBranchIntoBranch",
+    description: "Merge a source branch into a target branch in a repository. Optionally push merged target branch to remote.",
+    input_schema: {
+      type: "object",
+      properties: {
+        repoName: {
+          type: "string",
+          description: "The name of the repository",
+        },
+        sourceBranch: {
+          type: "string",
+          description: "The branch to merge from (source branch)",
+        },
+        targetBranch: {
+          type: "string",
+          description: "The branch to merge into (target branch)",
+        },
+        pushToRemote: {
+          type: "boolean",
+          description: "Whether to push target branch to remote after successful merge. Defaults to false.",
+        },
+        explanation: {
+          type: "string",
+          description: "explanation of the tool in not more than 7 words, use 10 at max when needed",
+        },
+      },
+      required: [
+        "repoName",
+        "sourceBranch",
+        "targetBranch",
+        "explanation",
+      ],
+    },
+  },
+  {
+    name: "swarm_start_sub_agent",
+    description: "Start a sub-agent in the same task/workspace. Parent task/agent context is auto-injected by runtime.",
+    input_schema: {
+      type: "object",
+      properties: {
+        prompt: {
+          type: "string",
+          description: "Prompt/instruction for the sub-agent.",
+        },
+        modelKey: {
+          type: "string",
+          description: "Optional model key for sub-agent execution.",
+        },
+      },
+      required: [
+        "prompt",
+      ],
+    },
+  },
+  {
+    name: "swarm_send_agent_message",
+    description: "Send a follow-up message to an existing child or sub agent.",
+    input_schema: {
+      type: "object",
+      properties: {
+        agentId: {
+          type: "string",
+          description: "Target agent ID.",
+        },
+        message: {
+          type: "string",
+          description: "Message/prompt to send to the agent.",
+        },
+      },
+      required: [
+        "agentId",
+        "message",
+      ],
+    },
+  },
+  {
+    name: "swarm_get_sub_agent_status",
+    description: "Get current status of a sub-agent.",
+    input_schema: {
+      type: "object",
+      properties: {
+        agentId: {
+          type: "string",
+          description: "Target sub-agent ID.",
+        },
+      },
+      required: [
+        "agentId",
+      ],
+    },
+  },
+  {
+    name: "swarm_stop_sub_agent",
+    description: "Stop a running sub-agent.",
+    input_schema: {
+      type: "object",
+      properties: {
+        agentId: {
+          type: "string",
+          description: "Target sub-agent ID.",
+        },
+        reason: {
+          type: "string",
+          description: "Optional reason for stopping the sub-agent.",
+        },
+      },
+      required: [
+        "agentId",
+      ],
+    },
+  },
+  {
+    name: "swarm_clean_sub_agent",
+    description: "Clean a running sub-agent.",
+    input_schema: {
+      type: "object",
+      properties: {
+        agentId: {
+          type: "string",
+          description: "Target sub-agent ID.",
+        },
+        reason: {
+          type: "string",
+          description: "Optional reason for stopping the sub-agent.",
+        },
+      },
+      required: [
+        "agentId",
+      ],
+    },
+  },
+  {
+    name: "get_available_models",
+    description: "to get which LLM models are available",
+    input_schema: {
+      type: "object",
+      properties: {
+      },
+      required: [
+      ],
+    },
+  },
+  {
+    name: "swarm_start_child_task",
+    description: "Start a child task in a separate task folder/branch. Parent context is auto-injected by runtime.",
+    input_schema: {
+      type: "object",
+      properties: {
+        initialPrompt: {
+          type: "string",
+          description: "Initial prompt for the child task agent.",
+        },
+        branchName: {
+          type: "string",
+          description: "Branch name for the child task workspace.",
+        },
+        modelKey: {
+          type: "string",
+          description: "Optional model key for child task agent.use the same model key as the parent agent if not specified.",
+        },
+      },
+      required: [
+        "initialPrompt",
+        "branchName",
+      ],
+    },
+  },
+  {
+    name: "swarm_get_child_task_status",
+    description: "Get current status of a child task.",
+    input_schema: {
+      type: "object",
+      properties: {
+        taskId: {
+          type: "string",
+          description: "Child task ID.",
+        },
+      },
+      required: [
+        "taskId",
+      ],
+    },
+  },
+  {
+    name: "swarm_send_child_task_message",
+    description: "Send a follow-up prompt to a child task.",
+    input_schema: {
+      type: "object",
+      properties: {
+        taskId: {
+          type: "string",
+          description: "taskID of the child task you want to send message to.",
+        },
+        message: {
+          type: "string",
+          description: "Prompt/message to send to child task agent.",
+        },
+      },
+      required: [
+        "agentId",
+        "message",
+      ],
+    },
+  },
+  {
+    name: "swarm_stop_child_task",
+    description: "Stop a running child task.",
+    input_schema: {
+      type: "object",
+      properties: {
+        taskId: {
+          type: "string",
+          description: "Child task ID.",
+        },
+        reason: {
+          type: "string",
+          description: "Optional reason for stopping child task.",
+        },
+      },
+      required: [
+        "taskId",
+      ],
+    },
+  },
+  {
+    name: "get_available_models",
+    description: "to get which LLM models are available",
+    input_schema: {
+      type: "object",
+      properties: {
+      },
+      required: [
+      ],
+    },
+  },
+  {
+    name: "tavily_search",
+    description: "Search the web for current information on any topic. Use for news, facts, or data beyond your knowledge cutoff. Returns snippets and source URLs.",
+    input_schema: {
+      type: "object",
+      properties: {
+        query: {
+          description: "Search query",
+          type: "string",
+        },
+        max_results: {
+          default: 5,
+          description: "The maximum number of search results to return",
+          type: "integer",
+        },
+        search_depth: {
+          default: "basic",
+          description: "The depth of the search. 'basic' for generic results, 'advanced' for more thorough search, 'fast' for optimized low latency with high relevance, 'ultra-fast' for prioritizing latency above all else",
+          enum: [
+            "basic",
+            "advanced",
+            "fast",
+            "ultra-fast",
+          ],
+          type: "string",
+        },
+        topic: {
+          const: "general",
+          default: "general",
+          description: "The category of the search. This will determine which of our agents will be used for the search",
+          type: "string",
+        },
+        time_range: {
+          anyOf: [
+            {
+              enum: [
+                "day",
+                "week",
+                "month",
+                "year",
+              ],
+              type: "string",
+            },
+            {
+              type: "null",
+            },
+          ],
+          default: null,
+          description: "The time range back from the current date to include in the search results",
+        },
+        include_images: {
+          default: false,
+          description: "Include a list of query-related images in the response",
+          type: "boolean",
+        },
+        include_image_descriptions: {
+          default: false,
+          description: "Include a list of query-related images and their descriptions in the response",
+          type: "boolean",
+        },
+        include_raw_content: {
+          default: false,
+          description: "Include the cleaned and parsed HTML content of each search result",
+          type: "boolean",
+        },
+        include_domains: {
+          default: [
+          ],
+          description: "A list of domains to specifically include in the search results, if the user asks to search on specific sites set this to the domain of the site",
+          items: {
+            type: "string",
+          },
+          type: "array",
+        },
+        exclude_domains: {
+          default: [
+          ],
+          description: "List of domains to specifically exclude, if the user asks to exclude a domain set this to the domain of the site",
+          items: {
+            type: "string",
+          },
+          type: "array",
+        },
+        country: {
+          default: "",
+          description: "Boost search results from a specific country. Must be a full country name (e.g., 'United States', 'Japan', 'Germany'). ISO country codes (e.g., 'us', 'jp') are not supported. Available only if topic is general. See https://docs.tavily.com/documentation/api-reference/search for the full list of supported countries.",
+          type: "string",
+        },
+        include_favicon: {
+          default: false,
+          description: "Whether to include the favicon URL for each result",
+          type: "boolean",
+        },
+        start_date: {
+          default: "",
+          description: "Will return all results after the specified start date. Required to be written in the format YYYY-MM-DD.",
+          type: "string",
+        },
+        end_date: {
+          default: "",
+          description: "Will return all results before the specified end date. Required to be written in the format YYYY-MM-DD",
+          type: "string",
+        },
+        exact_match: {
+          anyOf: [
+            {
+              type: "boolean",
+            },
+            {
+              type: "null",
+            },
+          ],
+          default: null,
+          description: "Only return results containing the exact phrase(s) in quotes in your query",
+        },
+      },
+      required: [
+        "query",
+      ],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "tavily_extract",
+    description: "Extract content from URLs. Returns raw page content in markdown or text format.",
+    input_schema: {
+      type: "object",
+      properties: {
+        urls: {
+          description: "List of URLs to extract content from",
+          items: {
+            type: "string",
+          },
+          type: "array",
+        },
+        extract_depth: {
+          default: "basic",
+          description: "Use 'advanced' for LinkedIn, protected sites, or tables/embedded content",
+          enum: [
+            "basic",
+            "advanced",
+          ],
+          type: "string",
+        },
+        include_images: {
+          default: false,
+          description: "Include images from pages",
+          type: "boolean",
+        },
+        format: {
+          default: "markdown",
+          description: "Output format",
+          enum: [
+            "markdown",
+            "text",
+          ],
+          type: "string",
+        },
+        include_favicon: {
+          default: false,
+          description: "Include favicon URLs",
+          type: "boolean",
+        },
+        query: {
+          default: "",
+          description: "Query to rerank content chunks by relevance",
+          type: "string",
+        },
+      },
+      required: [
+        "urls",
+      ],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "tavily_crawl",
+    description: "Crawl a website starting from a URL. Extracts content from pages with configurable depth and breadth.",
+    input_schema: {
+      type: "object",
+      properties: {
+        url: {
+          description: "The root URL to begin the crawl",
+          type: "string",
+        },
+        max_depth: {
+          default: 1,
+          description: "Max depth of the crawl. Defines how far from the base URL the crawler can explore.",
+          minimum: 1,
+          type: "integer",
+        },
+        max_breadth: {
+          default: 20,
+          description: "Max number of links to follow per level of the tree (i.e., per page)",
+          minimum: 1,
+          type: "integer",
+        },
+        limit: {
+          default: 50,
+          description: "Total number of links the crawler will process before stopping",
+          minimum: 1,
+          type: "integer",
+        },
+        instructions: {
+          default: "",
+          description: "Natural language instructions for the crawler. Instructions specify which types of pages the crawler should return.",
+          type: "string",
+        },
+        select_paths: {
+          default: [
+          ],
+          description: "Regex patterns to select only URLs with specific path patterns (e.g., /docs/.*, /api/v1.*)",
+          items: {
+            type: "string",
+          },
+          type: "array",
+        },
+        select_domains: {
+          default: [
+          ],
+          description: "Regex patterns to restrict crawling to specific domains or subdomains (e.g., ^docs\\.example\\.com$)",
+          items: {
+            type: "string",
+          },
+          type: "array",
+        },
+        allow_external: {
+          default: true,
+          description: "Whether to return external links in the final response",
+          type: "boolean",
+        },
+        extract_depth: {
+          default: "basic",
+          description: "Advanced extraction retrieves more data, including tables and embedded content, with higher success but may increase latency",
+          enum: [
+            "basic",
+            "advanced",
+          ],
+          type: "string",
+        },
+        format: {
+          default: "markdown",
+          description: "The format of the extracted web page content. markdown returns content in markdown format. text returns plain text and may increase latency.",
+          enum: [
+            "markdown",
+            "text",
+          ],
+          type: "string",
+        },
+        include_favicon: {
+          default: false,
+          description: "Whether to include the favicon URL for each result",
+          type: "boolean",
+        },
+      },
+      required: [
+        "url",
+      ],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "tavily_map",
+    description: "Map a website's structure. Returns a list of URLs found starting from the base URL.",
+    input_schema: {
+      type: "object",
+      properties: {
+        url: {
+          description: "The root URL to begin the mapping",
+          type: "string",
+        },
+        max_depth: {
+          default: 1,
+          description: "Max depth of the mapping. Defines how far from the base URL the crawler can explore",
+          minimum: 1,
+          type: "integer",
+        },
+        max_breadth: {
+          default: 20,
+          description: "Max number of links to follow per level of the tree (i.e., per page)",
+          minimum: 1,
+          type: "integer",
+        },
+        limit: {
+          default: 50,
+          description: "Total number of links the crawler will process before stopping",
+          minimum: 1,
+          type: "integer",
+        },
+        instructions: {
+          default: "",
+          description: "Natural language instructions for the crawler",
+          type: "string",
+        },
+        select_paths: {
+          default: [
+          ],
+          description: "Regex patterns to select only URLs with specific path patterns (e.g., /docs/.*, /api/v1.*)",
+          items: {
+            type: "string",
+          },
+          type: "array",
+        },
+        select_domains: {
+          default: [
+          ],
+          description: "Regex patterns to restrict crawling to specific domains or subdomains (e.g., ^docs\\.example\\.com$)",
+          items: {
+            type: "string",
+          },
+          type: "array",
+        },
+        allow_external: {
+          default: true,
+          description: "Whether to return external links in the final response",
+          type: "boolean",
+        },
+      },
+      required: [
+        "url",
+      ],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "tavily_research",
+    description: "Perform comprehensive research on a given topic or question. Use this tool when you need to gather information from multiple sources, including web pages, documents, and other resources, to answer a question or complete a task. Returns a detailed response based on the research findings. Rate limit: 20 requests per minute.",
+    input_schema: {
+      type: "object",
+      properties: {
+        input: {
+          description: "A comprehensive description of the research task",
+          type: "string",
+        },
+        model: {
+          default: "auto",
+          description: "Defines the degree of depth of the research. 'mini' is good for narrow tasks with few subtopics. 'pro' is good for broad tasks with many subtopics",
+          enum: [
+            "mini",
+            "pro",
+            "auto",
+          ],
+          type: "string",
+        },
+      },
+      required: [
+        "input",
+      ],
+      additionalProperties: false,
+    },
+  },
+]

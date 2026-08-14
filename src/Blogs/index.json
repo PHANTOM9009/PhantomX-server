@@ -1,0 +1,15 @@
+{
+  "blogs": [
+    {
+      "id": "1",
+      "title": "What is wrong with current coding agent workflow",
+      "slug": "What-is-wrong-with-current-coding-agent-workflow",
+      "file": "what_is_wrong.md",
+      "excerpt": "What is wrong with current coding agent workflow?",
+      "author": "PhantomX team",
+      "createdAt": "2025-01-13",
+      "tags": ["AI Agents"],
+      "featured": true
+    }
+  ]
+}

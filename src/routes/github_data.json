@@ -1,0 +1,71 @@
+{
+    "data": {
+        "login": "PHANTOM9009",
+        "id": 70859887,
+        "node_id": "MDQ6VXNlcjcwODU5ODg3",
+        "avatar_url": "https://avatars.githubusercontent.com/u/70859887?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/PHANTOM9009",
+        "html_url": "https://github.com/PHANTOM9009",
+        "followers_url": "https://api.github.com/users/PHANTOM9009/followers",
+        "following_url": "https://api.github.com/users/PHANTOM9009/following{/other_user}",
+        "gists_url": "https://api.github.com/users/PHANTOM9009/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/PHANTOM9009/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/PHANTOM9009/subscriptions",
+        "organizations_url": "https://api.github.com/users/PHANTOM9009/orgs",
+        "repos_url": "https://api.github.com/users/PHANTOM9009/repos",
+        "events_url": "https://api.github.com/users/PHANTOM9009/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/PHANTOM9009/received_events",
+        "type": "User",
+        "user_view_type": "private",
+        "site_admin": false,
+        "name": "ANCHIT RANA",
+        "company": null,
+        "blog": "",
+        "location": null,
+        "email": null,
+        "hireable": null,
+        "bio": "Software Developer",
+        "twitter_username": null,
+        "notification_email": null,
+        "public_repos": 32,
+        "public_gists": 1,
+        "followers": 9,
+        "following": 10,
+        "created_at": "2020-09-06T19:13:21Z",
+        "updated_at": "2025-10-06T15:01:57Z",
+        "private_gists": 0,
+        "total_private_repos": 15,
+        "owned_private_repos": 15,
+        "disk_usage": 1002294,
+        "collaborators": 3,
+        "two_factor_authentication": true,
+        "plan": {
+            "name": "free",
+            "space": 976562499,
+            "collaborators": 0,
+            "private_repos": 10000
+        }
+    }
+}
+
+
+{
+    "userId": "a8438dce-54bf-4b9a-aaeb-16df5a3b0967",
+    "organizations": [
+        {
+            "login": "AI-PLAYGROUNDS",
+            "id": 160731324,
+            "url": "https://api.github.com/orgs/AI-PLAYGROUNDS",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/160731324?v=4",
+            "description": null
+        },
+        {
+            "login": "PhantomX9009",
+            "id": 236195451,
+            "url": "https://api.github.com/orgs/PhantomX9009",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/236195451?v=4",
+            "description": null
+        }
+    ]
+}

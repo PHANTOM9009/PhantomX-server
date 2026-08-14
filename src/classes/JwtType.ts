@@ -1,0 +1,6 @@
+export enum JwtType
+{
+    ACCESS_TOKEN=0,
+    EMAIL_VERIFICATION_TOKEN =1,
+    INVITE_VERIFICATION_TOKEN=2
+};

@@ -1,0 +1,6 @@
+export enum TaskType
+{
+    WITHOUT_WORKSPACE=0,
+    WITH_WORKSPACE=1,
+    DYNAMIC_WORKSPACE=2
+}

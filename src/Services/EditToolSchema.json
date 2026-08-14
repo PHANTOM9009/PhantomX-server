@@ -1,0 +1,42 @@
+{
+  "name": "EditCodeFile",
+  "description": "Edits a code file by inserting, replacing, or deleting content at specific line",
+  "input_schema": {
+    "type": "object",
+    "required": ["filePath", "operation", "location"],
+    "properties": {
+      "filePath": {
+        "type": "string",
+        "description": "Path to the file to edit"
+      },
+      "operation": {
+        "type": "string",
+        "enum": ["insert", "replace", "delete"],
+        "description": "Type of edit operation to perform"
+      },
+      "location": {
+        "type": "object",
+        "description":"location means the line after which the editing will start, or the line till which the editing will take place, in case of insert, you have to output the line after which the patch has to be inserted, in case of replace, you will output the starting line, i.e the first line which has to be replaced, and the last line which has to be replaced with the new patch,  same goes for deletion",
+        "required": ["startLine"],
+        "properties": {
+          "startLine": {
+            "type": "integer",
+            "description": "Line  where to start the edit, in case of insertion, the startLine will be the line after which the new content will be added."
+          },
+          "endLine": {
+            "type": "integer",
+            "description": "Line where to end the edit "
+          }
+        }
+      },
+      "content": {
+        "type": "string",
+        "description": "New content to insert or replace (not needed for delete operations)"
+      },
+      "reason": {
+        "type": "string",
+        "description": "Optional documentation explaining why this edit is being made"
+      }
+    }
+  }
+}

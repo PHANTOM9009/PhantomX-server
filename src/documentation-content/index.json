@@ -1,0 +1,69 @@
+{
+  "sections": [
+    
+    {
+      "id": "docs",
+      "title": "Documentation",
+      "order": 3,
+      "pages": [
+        {
+          "id": "phantom",
+          "title": "Phantom",
+          "slug": "phantom",
+          "file": "Docs/Phantom.md"
+        },
+        {
+          "id": "workspaces",
+          "title": "Workspaces",
+          "slug": "workspaces",
+          "file": "Docs/Workspaces.md"
+        },
+        {
+          "id": "tasks",
+          "title": "Tasks",
+          "slug": "tasks",
+          "file": "Docs/Tasks.md"
+        }
+      ]
+    },
+    {
+      "id": "setup",
+      "title": "Setup",
+      "order": 1,
+      "pages": [
+        
+        {
+          "id": "setting-up-integrations",
+          "title": "Setting up Integrations",
+          "slug": "setting-up-integrations",
+          "file": "Setup/Setting up Integrations.md"
+        },
+        {
+          "id": "setting-up-secrets",
+          "title": "Setting up Secrets",
+          "slug": "setting-up-secrets",
+          "file": "Setup/Setting up Secrets.md"
+        },
+        {
+          "id": "setting-up-system-prompts",
+          "title": "Setting up System Prompts",
+          "slug": "setting-up-system-prompts",
+          "file": "Setup/Setting up System Prompts.md"
+        }
+      ]
+    },
+    {
+      "id": "setting-up-workspaces",
+      "title": "Setting up Workspaces",
+      "order": 2,
+      "pages": [
+        {
+          "id": "setting-up-steps",
+          "title": "Setting up steps",
+          "slug": "setting-up-steps",
+          "file": "setting up Workspaces/Setting up steps.md"
+        }
+      ]
+    }
+  ]
+}

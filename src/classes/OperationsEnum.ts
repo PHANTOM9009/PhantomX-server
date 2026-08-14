@@ -1,0 +1,10 @@
+export enum Operations
+{
+    CODING_AGENT=0,
+    DOCUMENTATION=1,
+    DOCKER_SETUP=2,
+    COMMAND_VERIFY=3,
+    TERMINAL_SETUP=4,
+    WORKSPACE_SETUP = 5,
+    GENERAL_QUERY = 6,
+}
