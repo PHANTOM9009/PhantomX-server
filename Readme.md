@@ -1,6 +1,6 @@
 # PhantomX
 
-Opensourcing a coding harness, with self hosted workspaces, multi tenancy and multi agent support.
+Open sourcing a coding harness, with self hosted workspaces, multi tenancy and multi agent support.
 
 ## Highlights
 
@@ -91,9 +91,9 @@ which needs to have some values according to the way you want to use it.
 2. clone the repository PhantomX-controller. This is the controller created for local machines, to start the docker conainers for tasks. It is a client which connects to the PhantomX-server
 
 ### Repo links 
-1. PhantomX-server: 
-2. PhantomX-client:
-3. PhantomX-controller: 
+1. PhantomX-server: https://github.com/PHANTOM9009/PhantomX-server
+2. PhantomX-client: https://github.com/PHANTOM9009/PhantomX-client
+3. PhantomX-controller: https://github.com/PHANTOM9009/PhantomX_Controller
 
 ### Set the Model providers
 
