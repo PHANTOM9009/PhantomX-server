@@ -12,7 +12,7 @@ Opensourcing a coding harness, with self hosted workspaces, multi tenancy and mu
 
 ## Architecture Diagram
 
-![alt text](image.png)
+![alt text](Architecture.png)
 
 ## Harness
 
