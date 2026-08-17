@@ -14,6 +14,27 @@ Open sourcing a coding harness, with self hosted workspaces, multi tenancy and m
 
 ![alt text](Architecture.png)
 
+## Gallery
+
+<div style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin:20px 0;">
+
+  <div style="flex:1; min-width:220px; max-width:360px; background:#1e1e1e; border-radius:10px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.4);">
+    <img src="Images/image-1.png" style="width:100%; height:220px; object-fit:cover; display:block;" alt="Screenshot 1" />
+    <div style="text-align:center; padding:10px; color:#ffffff; font-size:14px; background:#333;">Screenshot 1</div>
+  </div>
+
+  <div style="flex:1; min-width:220px; max-width:360px; background:#1e1e1e; border-radius:10px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.4);">
+    <img src="Images/image-2.png" style="width:100%; height:220px; object-fit:cover; display:block;" alt="Screenshot 2" />
+    <div style="text-align:center; padding:10px; color:#ffffff; font-size:14px; background:#333;">Screenshot 2</div>
+  </div>
+
+  <div style="flex:1; min-width:220px; max-width:360px; background:#1e1e1e; border-radius:10px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.4);">
+    <img src="Images/image-3.png" style="width:100%; height:220px; object-fit:cover; display:block;" alt="Screenshot 3" />
+    <div style="text-align:center; padding:10px; color:#ffffff; font-size:14px; background:#333;">Screenshot 3</div>
+  </div>
+
+</div>
+
 ## Harness
 
 we call our agent Phantom, below are features of this harness.
