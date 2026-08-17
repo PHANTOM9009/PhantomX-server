@@ -102,6 +102,15 @@ PhantomX harness is having support for two types of multi agentic workflow, we c
 
     When PhantomX used to use the cloud resources, then it was working, but now since we have shifted to self hosted workspaces, this feature will be supported in future, as testing is currently going on, since this feature can burn a lot of tokens, we have to be careful rolling this out.
 
+## RAG support
+
+Harness supports RAG tools natively, we have also created an indexer for repos, https://github.com/PHANTOM9009/PhantomX-Indexer, you can run this indexer in the folder where your repositories are, it will find the projects based on the git configurations found in each one of them, and stores the chunks and embeddings in the local chromaDB. 
+This indexer is having two modes: 
+1. Indexing mode, where it will index the pointed repositories and stops.
+2. Watcher mode, if the metadata of the indexer is not present in the given project, it will start indexing from scratch, and then start a watcher to update the chunks which changed, if anything in the project changes.
+
+PhantomX harness will use the RAG tools, it will not start the indexing of the projects, rather you will point it to the running chromaDB server either on your local machine or cloud, and then it will query the db, assuming that the project name is the same as the collection name in the chromaDB, so you can use any of the indexers out there available, pairing with this harness.
+
 ## How to setup PhantomX at your end
 
 ### Build from source
