@@ -124,6 +124,7 @@ which needs to have some values according to the way you want to use it.
 1. PhantomX-server: https://github.com/PHANTOM9009/PhantomX-server
 2. PhantomX-client: https://github.com/PHANTOM9009/PhantomX-client
 3. PhantomX-controller: https://github.com/PHANTOM9009/PhantomX_Controller
+4. PhantomX-Indexer: https://github.com/PHANTOM9009/PhantomX-Indexer
 
 ### Set the Model providers
 
