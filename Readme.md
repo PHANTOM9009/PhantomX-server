@@ -126,6 +126,9 @@ which needs to have some values according to the way you want to use it.
 3. PhantomX-controller: https://github.com/PHANTOM9009/PhantomX_Controller
 4. PhantomX-Indexer: https://github.com/PHANTOM9009/PhantomX-Indexer
 
+### How to start PhantomX
+First you have to run the PhantomX-Server and PhantomX-Client on your machine, and then navigate on the Client URL which will be https://localhost:3000/login, to start or create any new task, you need to start the PhantomX-Controller on the host machine, This controller will listen to the server events for setting up a new task or start an existing task.
+
 ### Set the Model providers
 
 We support AWS bedrock, Azure foundry and Openrouter, you have to set your API keys of any given provider.
